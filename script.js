@@ -40,29 +40,32 @@ function setupTaskInteractions({deleteButton, newRow, taskTitle, taskId, status,
     newRow.appendChild(deleteButton);
 
     let isEditing = false;
-    let singleClickTimer;
+    let singleClickTimer = null;
 
     // Toggle task status (done/pending)
-    singleClickTimer = newRow.addEventListener("click", () => {
-        setTimeout(() => {
-            status = !status;
+    newRow.addEventListener("click", () => {
+         if (!singleClickTimer) {
+             singleClickTimer = setTimeout(() => {
+                 status = !status;
 
-            const tasks = JSON.parse(localStorage.getItem("tasks"));
-            const index = tasks.findIndex((task) => task.id === taskId);
+                 const tasks = JSON.parse(localStorage.getItem("tasks"));
+                 const index = tasks.findIndex((task) => task.id === taskId);
 
-            if (index !== -1 && !isEditing) {
-                tasks[index].status = (status) ? "done" : "pending";
-                newRow.style.backgroundColor = (status) ? "#B2FF66" : "#f2f2f2";
-                localStorage.setItem("tasks", JSON.stringify(tasks));
-            }
-
-        }, 250);
+                 if (index !== -1 && !isEditing) {
+                     tasks[index].status = (status) ? "done" : "pending";
+                     newRow.style.backgroundColor = (status) ? "#B2FF66" : "#f2f2f2";
+                     localStorage.setItem("tasks", JSON.stringify(tasks));
+                 }
+                 singleClickTimer = null;
+             }, 300);
+         }
     });
 
     // Edit task on double-click
     newRow.addEventListener("dblclick", () => {
         if (singleClickTimer) {
-            removeEventListener(singleClickTimer);
+            clearTimeout(singleClickTimer);
+            singleClickTimer = null;
         }
 
         const editInput = document.createElement("input");
