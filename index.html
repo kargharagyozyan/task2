@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+<form>
+    <input type="text" name="text_task" placeholder="Enter a task..." id="new_task_text" value="">
+    <button type="submit" onclick="addTask(event)">Add Task</button>
+    <button type="submit" onclick="showAllTasks(event)" id="all_tasks">ALL</button>
+    <button type="submit" onclick="showActiveTasks(event)" id="active_tasks">ACTIVE</button>
+    <button type="submit" onclick="showComplitedTasks(event)" id="complited_tasks">COMPLITED</button>
+    <button type="submit" onclick="clearComplitedTasks(event)">CLEAR COMPLITED</button>
+</form>
+
+<ul id="task_list"></ul>>
+
+<script src="script.js"></script>
+</body>
+</html>
